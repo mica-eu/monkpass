@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+ 
+<script>
+  function numberKey(number) {
+    return number % 10;
+  }
+  function symbolKey(number) {
+    var symbols = [
+      '!', '@', '#', '$', '%',
+      '^', '&', '*', '(', ')',
+      ':', ';', '{', '}', ',',
+      '[', ']', '/', '\\'];
+      return symbols[number % symbols.length];
+  }
+  function upperKey(number) {
+    return String.fromCharCode(65 + (number % 26));
+  }
+  function lowerKey(number) {
+    return String.fromCharCode(97 + ((number / 100) % 26));
+  }
+  function encrypt(passphrase, string) {
+    return concatKeys(toDecimal(passphrase+string));
+  }
+  function concatKeys(number) {
+    var array = [];
+    array.push(numberKey(number),
+    upperKey(number),
+    symbolKey(number),
+    lowerKey(number));
+    array.sort(shuffleKeys(number));
+    return array.join('');
+  }
+  function shuffleKeys(number) {
+    return .5 - number;
+  }
+  function toDecimal(string) {
+    return string.split('')
+    .map(function(a) { return a.charCodeAt(0); })
+    .reduce(function(a,b) { return a+b });
+  }
+
+</script>
